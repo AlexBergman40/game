@@ -71,6 +71,10 @@ void Game::handleEvents()
                 isRunning = false;
                 break;
 
+            case SDL_MOUSEBUTTONDOWN:
+                //TODO: Call board clicky
+                break;
+
             default:
                 break;
         } 
