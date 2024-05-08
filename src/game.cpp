@@ -2,11 +2,13 @@
 #include "texture.hpp"
 #include "gameobject.hpp"
 #include "map.hpp"
+#include "boardrep.hpp"
 #include <SDL2/SDL_render.h>
 
 GameObject* player;
 GameObject* enemy;
 Map* map;
+boardrep* board;
 
 SDL_Renderer* Game::renderer = nullptr;
 
@@ -48,6 +50,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     player = new GameObject("./assets/char.png", 100, 100);
     enemy = new GameObject("./assets/enemy.png", 230, 100);
     map = new Map();
+    board = new boardrep();
+    // using bitboard representation, initialize piece positions
+    // 
+    // white pawns = 8 second rank
+    // white castles = 1 bottom left, 1 bottom right
+    // 
 
 }
 
@@ -81,6 +89,7 @@ void Game::render()
     //add stuff to render here
 
     map->DrawMap();
+    board->printboard();
     player->Render();
     enemy->Render();
 
