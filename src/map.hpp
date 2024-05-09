@@ -7,7 +7,6 @@
 class Map
 {
 public:
-
     Map();
     ~Map();
 
@@ -15,13 +14,11 @@ public:
     void DrawMap();
 
 private:
+    SDL_Rect rectSource, rectDestination;
 
-    SDL_Rect src, dest;
-
-    SDL_Texture* dirt;
-    SDL_Texture* grass;
-    SDL_Texture* water;
+    SDL_Texture *dirt;
+    SDL_Texture *grass;
+    SDL_Texture *water;
 
     int map[20][25];
-
 };
