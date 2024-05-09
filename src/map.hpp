@@ -16,7 +16,7 @@ public:
 
 private:
 
-    SDL_Rect src, dest;
+    SDL_Rect rectSource, rectDestination;
 
     SDL_Texture* dirt;
     SDL_Texture* grass;

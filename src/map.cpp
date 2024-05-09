@@ -34,11 +34,8 @@ Map::Map()
 
     LoadMap(lvl1);
 
-    src.x = src.y = 0;
-    src.w = dest.w = 32;
-    src.h = dest.w = 32;
-
-    dest.x = dest.y = 0;
+    rectSource = {0, 0, 32, 32};
+    rectDestination = {0, 0, 32, 32};
 }
 
 void Map::LoadMap(int array[20][25])
@@ -66,19 +63,19 @@ void Map::DrawMap()
         {
             type = map[row][column];
 
-            dest.x = column * 32;
-            dest.y = row * 32;
+            rectDestination.x = column * 32;
+            rectDestination.y = row * 32;
 
             switch(type)
             {
                 case 0:
-                    TextureManager::Draw(water, src, dest);
+                    TextureManager::Draw(water, rectSource, rectDestination);
                     break;
                 case 1:
-                    TextureManager::Draw(grass, src, dest);
+                    TextureManager::Draw(grass, rectSource, rectDestination);
                     break;
                 case 2:
-                    TextureManager::Draw(dirt, src, dest);
+                    TextureManager::Draw(dirt, rectSource, rectDestination);
                     break;
                 default:
                     break;
