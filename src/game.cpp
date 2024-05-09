@@ -66,7 +66,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents()
 {
     SDL_Event event;
-    int x = 0, y = 0;
+    enum highlightState
+    {
+        NOT_HIGHLIGHTED,
+        HIGHLIGHTED
+    };
     while (SDL_PollEvent(&event) != 0)
     {
         switch (event.type)
@@ -77,16 +81,13 @@ void Game::handleEvents()
             break;
 
         case SDL_MOUSEMOTION:
-            x = event.motion.x;
-            y = event.motion.y;
-            std::cout << x << ", " << y << std::endl;
+            // std::cout << event.motion.x << ", " << event.motion.y << std::endl;
             break;
 
         case SDL_MOUSEBUTTONDOWN: // mouse button is pressed
             if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_LEFT)
             {
                 std::cout << "Left mouse button pressed! at: " << event.button.x << ", " << event.button.y << std::endl;
-                // board.updateCurrentPiece(event.button.x, event.button.y);
             }
             if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_RIGHT)
             {
@@ -97,10 +98,12 @@ void Game::handleEvents()
             if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_LEFT)
             {
                 std::cout << "Left mouse button released! at: " << event.button.x << ", " << event.button.y << std::endl;
+                board->updateCurrentPiece(event.button.x, event.button.y, HIGHLIGHTED);
             }
             if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_RIGHT)
             {
                 std::cout << "Right mouse button released! at: " << event.button.x << ", " << event.button.y << std::endl;
+                board->updateCurrentPiece(event.button.x, event.button.y, NOT_HIGHLIGHTED);
             }
 
         default:

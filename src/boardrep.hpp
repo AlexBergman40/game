@@ -1,6 +1,9 @@
 #include "game.hpp"
 #include "texture.hpp"
 #include <cstdint>
+#include <string>
+
+using std::string;
 
 class boardrep
 {
@@ -35,6 +38,7 @@ private:
     SDL_Texture *blackQueenTexture;
     SDL_Texture *whiteKingTexture;
     SDL_Texture *blackKingTexture;
+    SDL_Texture *highlightTexture;
 
 public:
     boardrep();
@@ -42,6 +46,22 @@ public:
 
     void printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions);
     void printboard();
-    void updateCurrentPiece(Sint32 x, Sint32 y);
-    void updatePossibleMoves(int64_t piece);
+    void updateCurrentPiece(Sint32 x, Sint32 y, int highlight);
+    void updatePossibleMoves(int64_t piece, int pieceType, int side, string operation = "");
+
+    enum pieces
+    {
+        pawn,
+        rook,
+        bishop,
+        knight,
+        queen,
+        king
+    };
+
+    enum sides
+    {
+        white,
+        black
+    };
 };
