@@ -3,7 +3,7 @@
 
 Game *game = nullptr;
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     const int FPS = 60;
     const int frameDelay = 1000 / FPS;
@@ -13,9 +13,9 @@ int main(int argc, char** argv)
 
     game = new Game();
 
-    game->init("Fantastic Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+    game->init("Fantastic Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * 9, 64 * 9, false);
 
-    while(game->running())
+    while (game->running())
     {
         frameStart = SDL_GetTicks();
 
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 
         frameTime = SDL_GetTicks() - frameStart;
 
-        if(frameDelay > frameTime)
+        if (frameDelay > frameTime)
         {
             SDL_Delay(frameDelay - frameTime);
         }

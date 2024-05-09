@@ -10,15 +10,15 @@ public:
     Map();
     ~Map();
 
-    void LoadMap(int array[20][25]);
+    void LoadMap(int array[8][8]);
     void DrawMap();
 
 private:
     SDL_Rect rectSource, rectDestination;
 
-    SDL_Texture *dirt;
-    SDL_Texture *grass;
+    SDL_Texture *whiteSquare;
+    SDL_Texture *blackSquare;
     SDL_Texture *water;
 
-    int map[20][25];
+    int map[8][8];
 };
