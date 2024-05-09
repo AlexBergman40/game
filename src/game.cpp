@@ -4,6 +4,7 @@
 #include "map.hpp"
 #include "boardrep.hpp"
 #include <SDL2/SDL_render.h>
+#include <iostream>
 
 GameObject *player;
 GameObject *enemy;
@@ -65,6 +66,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 void Game::handleEvents()
 {
     SDL_Event event;
+    int x = 0, y = 0;
     while (SDL_PollEvent(&event) != 0)
     {
         switch (event.type)
@@ -73,6 +75,33 @@ void Game::handleEvents()
             std::cout << "Quitting game!" << std::endl;
             isRunning = false;
             break;
+
+        case SDL_MOUSEMOTION:
+            x = event.motion.x;
+            y = event.motion.y;
+            std::cout << x << ", " << y << std::endl;
+            break;
+
+        case SDL_MOUSEBUTTONDOWN: // mouse button is pressed
+            if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_LEFT)
+            {
+                std::cout << "Left mouse button pressed! at: " << event.button.x << ", " << event.button.y << std::endl;
+                // board.updateCurrentPiece(event.button.x, event.button.y);
+            }
+            if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_RIGHT)
+            {
+                std::cout << "Right mouse button pressed! at: " << event.button.x << ", " << event.button.y << std::endl;
+            }
+
+        case SDL_MOUSEBUTTONUP:
+            if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_LEFT)
+            {
+                std::cout << "Left mouse button released! at: " << event.button.x << ", " << event.button.y << std::endl;
+            }
+            if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_RIGHT)
+            {
+                std::cout << "Right mouse button released! at: " << event.button.x << ", " << event.button.y << std::endl;
+            }
 
         default:
             break;

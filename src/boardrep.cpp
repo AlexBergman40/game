@@ -20,16 +20,10 @@ boardrep::~boardrep()
 {
 }
 
-void boardrep::printColorPieces(SDL_Texture* pieceTexture, const int64_t &colorPiecePositions)
+void boardrep::printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions)
 {
 
-    /*
-    (10011010010 & ( 1 << 4)) >> 4
-    (10011010010 & 00000010000) >> 4
-    00000010000 >> 4
-    00000000001
-    */
-    int64_t one = 1;
+    // finds pieces at i position and draws them
     int xPos = 0;
     int yPos = 0;
     SDL_Rect Src, Dst;
@@ -38,13 +32,12 @@ void boardrep::printColorPieces(SDL_Texture* pieceTexture, const int64_t &colorP
     Dst.h = Dst.w = 64;
     for (int i = 0; i < 64; i++)
     {
-        int64_t mask = one << i;
-        // 1 = 0b0000000000000000000000000000000000000000000000000000001
-        int64_t masked_n = colorPiecePositions& mask;
-        if (masked_n != 0)
+        int64_t mask = (int64_t)1 << i; // = 0b00000000000000001, 1 <- i
+        int64_t masked_n = colorPiecePositions & mask;
+        if (masked_n != 0) // piece at position
         {
-            xPos = 32 * (i % 8) * 2;
-            yPos = 32 * (i / 8) * 2;
+            xPos = 32 * (i % 8) * 2; // file
+            yPos = 32 * (i / 8) * 2; // rank
             Dst.x = xPos;
             Dst.y = yPos;
             TextureManager::Draw(pieceTexture, Src, Dst);
@@ -59,13 +52,17 @@ void boardrep::printboard()
     printColorPieces(whiteKnightTexture, whiteKnights);
     printColorPieces(whiteBishopTexture, whiteBishops);
     printColorPieces(whiteQueenTexture, whiteQueens);
-    printColorPieces(whiteKingTexture, whiteKing);    
-    
-    
-    printColorPieces(blackPawnTexture, blackPawns);  
+    printColorPieces(whiteKingTexture, whiteKing);
+
+    printColorPieces(blackPawnTexture, blackPawns);
     printColorPieces(blackRookTexture, blackRooks);
-    printColorPieces(blackBishopTexture, blackBishops);  
-    printColorPieces(blackKnightTexture, blackKnights);  
-    printColorPieces(blackQueenTexture, blackQueens); 
-    printColorPieces(blackKingTexture, blackKing);  
+    printColorPieces(blackBishopTexture, blackBishops);
+    printColorPieces(blackKnightTexture, blackKnights);
+    printColorPieces(blackQueenTexture, blackQueens);
+    printColorPieces(blackKingTexture, blackKing);
+}
+
+void boardrep::updateCurrentPiece(Sint32 x, Sint32 y)
+{
+    // TODO: convert mouse position to board position, and update current piece and possible moves
 }
