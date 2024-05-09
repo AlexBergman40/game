@@ -3,7 +3,6 @@
 #include "gameobject.hpp"
 #include "map.hpp"
 #include "boardrep.hpp"
-#include <SDL2/SDL_render.h>
 
 GameObject* player;
 GameObject* enemy;

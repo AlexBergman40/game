@@ -23,5 +23,6 @@ private:
     SDL_Texture* water;
 
     int map[20][25];
+    bool messageSent = false;
 
 };

@@ -5,7 +5,7 @@ OBJS = main.cpp game.cpp texture.cpp gameobject.cpp map.cpp boardrep.cpp
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using.
-COMPILER_FLAGS = -w
+COMPILER_FLAGS = -w "-L C:\mingw_dev_lib\lib" "-I C:\mingw_dev_lib\include"
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image

@@ -27,6 +27,7 @@ int lvl1[20][25] =
 
 Map::Map()
 {
+    std::cout << "Creating map object" << std::endl;
     dirt = TextureManager::LoadTexture("./assets/dirt.png");
     water = TextureManager::LoadTexture("./assets/water.png");
     grass = TextureManager::LoadTexture("./assets/grass.png");
@@ -53,6 +54,11 @@ void Map::LoadMap(int array[20][25])
 
 void Map::DrawMap()
 {
+    if(!messageSent)
+    {
+        std::cout << "Drawing the map" << std::endl;
+        messageSent = true;
+    }
     int type = 0;
     for (int row = 0; row < 20; row++)
     {
