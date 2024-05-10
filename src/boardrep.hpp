@@ -23,8 +23,11 @@ private:
     int64_t whiteQueens = 0b0000100000000000000000000000000000000000000000000000000000000000;
     int64_t whiteKing = 0b0001000000000000000000000000000000000000000000000000000000000000;
 
-    int64_t currentPiece;  // updates when user selects piece to move, updateCurrentPiece(int64_t piece)
-    int64_t possibleMoves; // updates along currentPiece, with updatePossibleMoves(currentPiece)
+    int64_t piecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing | whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
+
+    int64_t currentPiece = (int64_t)0; // updates when user selects piece to move, updateCurrentPiece(int64_t piece)
+    int currentPieceType = -1;
+    int64_t possibleMoves = (int64_t)0; // updates along currentPiece, with updatePossibleMoves(currentPiece)
 
     SDL_Texture *whitePawnTexture;
     SDL_Texture *blackPawnTexture;
@@ -39,29 +42,50 @@ private:
     SDL_Texture *whiteKingTexture;
     SDL_Texture *blackKingTexture;
     SDL_Texture *highlightTexture;
+    SDL_Texture *shadowTexture;
+
+    void movePiece(int64_t from, int64_t to);
 
 public:
     boardrep();
     ~boardrep();
 
+    void checkSquare(Sint32 x, Sint32 y, int LEFTCLICK);
     void printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions);
     void printboard();
     void updateCurrentPiece(Sint32 x, Sint32 y, int highlight);
     void updatePossibleMoves(int64_t piece, int pieceType, int side, string operation = "");
+    void updatePiecesOnBoard();
+
+    enum pieceType
+    {
+        WHITEPAWN,
+        WHITEROOK,
+        WHITEBISHOP,
+        WHITEKNIGHT,
+        WHITEQUEEN,
+        WHITEKING,
+        BLACKPAWN,
+        BLACKROOK,
+        BLACKBISHOP,
+        BLACKKNIGHT,
+        BLACKQUEEN,
+        BLACKKING
+    };
 
     enum pieces
     {
-        pawn,
-        rook,
-        bishop,
-        knight,
-        queen,
-        king
+        PAWN,
+        ROOK,
+        BISHOP,
+        KNIGHT,
+        QUEEN,
+        KING
     };
 
     enum sides
     {
-        white,
-        black
+        WHITE,
+        BLACK
     };
 };
