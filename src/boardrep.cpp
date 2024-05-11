@@ -61,17 +61,17 @@ void boardrep::printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorP
         int64_t masked_n = colorPiecePositions & mask;
         if (masked_n != 0) // piece at position
         {
+            // draw pieces
             xPos = 32 * (i % 8) * 2; // file
             yPos = 32 * (i / 8) * 2; // rank
             Dst.x = xPos;
             Dst.y = yPos;
-            TextureManager::Draw(pieceTexture, Src, Dst);
-
-            // highlight current piece and possible moves
+            // highlight current piece
             if (masked_n == currentPiece)
             {
                 TextureManager::Draw(highlightTexture, Src, Dst);
             }
+            TextureManager::Draw(pieceTexture, Src, Dst);
         }
     }
 }
@@ -130,8 +130,6 @@ void boardrep::updatePiecesOnBoard()
     piecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing | whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
     whitePiecesOnBoard = whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
     blackPiecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing;
-
-    // possibly make own updateTurn() function later
 }
 
 void boardrep::updateTurn()
@@ -151,10 +149,10 @@ void boardrep::updateTurn()
 // TODO: check square for action type (select, deselect, move, castling, en passant)
 void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
 {
-    // if click is off board map:
+    // IF CLICK IS OFF BOARD MAP:
     // make dust particles
 
-    // if click is on board map:
+    // IF CLICK IS ON BOARD MAP:
 
     // (RIGHT CLICK)
     if (!CLICKTYPE)

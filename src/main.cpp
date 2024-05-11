@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 
     game = new Game();
 
-    game->init("Fantastic Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * 9, 64 * 9, false);
+    game->init("Fantastic Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 64 * 8, 64 * 8, false);
 
     while (game->running())
     {
