@@ -69,7 +69,9 @@ private:
     void updatePossibleMoves(string operation = "");
     void drawPossibleMoves();
     void movePiece(int64_t from, int64_t to);
+    void takePiece(int64_t square, int64_t *pieceType);
     void updatePiecesOnBoard();
+    void updateTurn();
     void printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions);
 
 public:

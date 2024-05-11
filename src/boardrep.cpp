@@ -39,6 +39,12 @@ void boardrep::movePiece(int64_t from, int64_t to)
     // add "to" square, bitwise or with piece integer
 }
 
+void boardrep::takePiece(int64_t square, int64_t *pieceType)
+{
+    *pieceType ^= square;
+    updatePiecesOnBoard();
+}
+
 void boardrep::printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions)
 {
 
@@ -139,6 +145,10 @@ void boardrep::updatePiecesOnBoard()
     blackPiecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing;
 
     // possibly make own updateTurn() function later
+}
+
+void boardrep::updateTurn()
+{
     if (whitesTurn)
     {
         friendlyPieces = blackPiecesOnBoard;
@@ -179,9 +189,18 @@ void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
     {
         updateCurrentPiece(square, CLICKTYPE);
     }
-    else if (currentPieceType != nullptr) /*piece type is not null*/
+    else if (currentPiece) // piece is selected
     {
+        for (int i = 0; i < pieceTypeContainer.size(); i++)
+        {
+            if (square & *pieceTypeContainer[i])
+            {
+                takePiece(square, pieceTypeContainer[i]);
+                break;
+            }
+        }
         movePiece(currentPiece, square);
+        updateTurn();
     }
 }
 
