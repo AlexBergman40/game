@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 
-using std::string, std::vector;
+using std::string;
+using std::vector;
 
 class boardrep
 {
