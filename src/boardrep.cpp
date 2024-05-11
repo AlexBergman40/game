@@ -125,19 +125,6 @@ void boardrep::updateCurrentPiece(int64_t square, int LEFTCLICK)
     }
 }
 
-void boardrep::updatePossibleMoves(string operation)
-{
-    // TODO: finish updatePossibleMoves logic
-
-    if (operation == "clear")
-    {
-        possibleMoves = 0;
-        printboard();
-        std::cout << "cleared possible moves" << std::endl;
-        return;
-    }
-}
-
 void boardrep::updatePiecesOnBoard()
 {
     piecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing | whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
@@ -202,8 +189,4 @@ void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
         movePiece(currentPiece, square);
         updateTurn();
     }
-}
-
-void boardrep::drawPossibleMoves()
-{
 }
