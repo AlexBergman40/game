@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp game.cpp texture.cpp gameobject.cpp map.cpp boardrep.cpp
+OBJS = $(wildcard *.cpp)
 
 #CC specifies which compiler we're using
 CC = g++
