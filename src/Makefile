@@ -5,7 +5,7 @@ OBJS = $(wildcard *.cpp)
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using.
-COMPILER_FLAGS = -w "-I ./include" "-L ./lib"
+COMPILER_FLAGS = -w -I"./include" -L"./lib"
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS =  -lmingw32 -lSDL2main -lSDL2  -lSDL2_image
