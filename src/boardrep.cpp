@@ -141,12 +141,12 @@ void boardrep::updatePiecesOnBoard()
     // possibly make own updateTurn() function later
     if (whitesTurn)
     {
-        friendlyPieces = whitePiecesOnBoard;
+        friendlyPieces = blackPiecesOnBoard;
         whitesTurn = false;
     }
     else
     {
-        friendlyPieces = blackPiecesOnBoard;
+        friendlyPieces = whitePiecesOnBoard;
         whitesTurn = true;
     }
 }
