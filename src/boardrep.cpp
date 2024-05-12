@@ -176,26 +176,31 @@ void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
     int rank = y / 64;
     int position = rank * 8 + file;
     int64_t square = (int64_t)1 << position;
-    // clicking on the same piece with left click
+
+    // clicking on the same piece with left click => do nothing
     if (square & currentPiece && CLICKTYPE)
         return;
-    // clicking on another friendly piece
-    if (square & friendlyPieces)
-    {
+    // clicking on another friendly piece => update current piece and possible moves
+    else if (square & friendlyPieces)
         updateCurrentPiece(square, CLICKTYPE);
-    }
-    // clicking on a square that's empty or has enemy piece while currentPiece present
-    else if (currentPiece)
+    // check if legal move
+    else if (square & possibleMoves)
     {
-        for (int i = 0; i < pieceTypeContainer.size(); i++)
+        // clicking on a square that's empty or has enemy piece while currentPiece present
+        if (currentPiece)
         {
-            if (square & *pieceTypeContainer[i])
+            // check if enemy piece => take piece
+            for (int i = 0; i < pieceTypeContainer.size(); i++)
             {
-                takePiece(square, pieceTypeContainer[i]);
-                break;
+                if (square & *pieceTypeContainer[i])
+                {
+                    takePiece(square, pieceTypeContainer[i]);
+                    break;
+                }
             }
+            // move piece
+            movePiece(currentPiece, square);
+            updateTurn();
         }
-        movePiece(currentPiece, square);
-        updateTurn();
     }
 }

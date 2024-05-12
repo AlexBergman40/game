@@ -22,16 +22,42 @@ void boardrep::updatePossibleMoves(string operation)
   }
   switch (pieceIndex)
   {
+  case WHITEPAWN:
+    break;
+  case WHITEROOK:
+    break;
+  case WHITEKNIGHT:
+    break;
+  case WHITEBISHOP:
+    break;
+  case WHITEQUEEN:
+    break;
+  case WHITEKING:
+    break;
+  case BLACKPAWN:
+    break;
+  case BLACKROOK:
+    break;
+  case BLACKKNIGHT:
+    break;
+  case BLACKBISHOP:
+    break;
+  case BLACKQUEEN:
+    break;
+  case BLACKKING:
+    break;
+
+  default:
+    break;
   }
 
-  possibleMoves = 0b0000000000000000011111111111111110000000000000000000000111111111111110000000000; // random binary for now
+  possibleMoves = 0b00000000000000000011111111111111111111110000000000000000001; // random binary for now
   drawPossibleMoves();
 }
 
 // Finds and draws possible moves on the board
 void boardrep::drawPossibleMoves()
 {
-  std::cout << "Drawing possible moves!" << std::endl;
   int xPos = 0;
   int yPos = 0;
   SDL_Rect Src = {0, 0, 32, 32},
