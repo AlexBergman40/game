@@ -1,18 +1,44 @@
 #include "game.hpp"
+#include <cstdint>
+#include <vector>
 
 class generatePossibleMoves
 {
+private:
+  int64_t square;
+  int64_t possibleMoves;
+  std::vector<void (generatePossibleMoves::*)()> funcs = {
+      &generatePossibleMoves::generateForWhitePawn,
+      &generatePossibleMoves::generateForWhiteRook,
+      &generatePossibleMoves::generateForWhiteKnight,
+      &generatePossibleMoves::generateForWhiteBishop,
+      &generatePossibleMoves::generateForWhiteQueen,
+      &generatePossibleMoves::generateForWhiteKing,
+      &generatePossibleMoves::generateForBlackPawn,
+      &generatePossibleMoves::generateForBlackRook,
+      &generatePossibleMoves::generateForBlackKnight,
+      &generatePossibleMoves::generateForBlackBishop,
+      &generatePossibleMoves::generateForBlackQueen,
+      &generatePossibleMoves::generateForBlackKing,
+  };
+  ;
+
+  void generateForWhitePawn();
+  void generateForWhiteRook();
+  void generateForWhiteKnight();
+  void generateForWhiteBishop();
+  void generateForWhiteQueen();
+  void generateForWhiteKing();
+  void generateForBlackPawn();
+  void generateForBlackRook();
+  void generateForBlackKnight();
+  void generateForBlackBishop();
+  void generateForBlackQueen();
+  void generateForBlackKing();
+
 public:
-  int64_t generateForWhitePawn();
-  int64_t generateForWhiteRook();
-  int64_t generateForWhiteKnight();
-  int64_t generateForWhiteBishop();
-  int64_t generateForWhiteQueen();
-  int64_t generateForWhiteKing();
-  int64_t generateForBlackPawn();
-  int64_t generateForBlackRook();
-  int64_t generateForBlackKnight();
-  int64_t generateForBlackBishop();
-  int64_t generateForBlackQueen();
-  int64_t generateForBlackKing();
+  generatePossibleMoves(int64_t square, int pieceType);
+  ~generatePossibleMoves();
+
+  int64_t generate() { return possibleMoves; }
 };
