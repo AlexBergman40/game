@@ -22,6 +22,7 @@ void boardrep::updatePossibleMoves(string operation)
   switch (pieceIndex)
   {
   case WHITEPAWN:
+
     break;
   case WHITEROOK:
     break;
@@ -50,7 +51,6 @@ void boardrep::updatePossibleMoves(string operation)
     break;
   }
 
-  possibleMoves = 0b00000000000000001010101010101010101010101010101010101010101010; // random binary for now
   drawPossibleMoves();
 }
 
