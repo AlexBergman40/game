@@ -204,6 +204,11 @@ void boardrep::updateMoveHistory()
 {
     moveHistory.push_back(getBoardState());
     std::cout << "Move history updated" << std::endl;
+    for (int i = 0; i < moveHistory[0].size(); i++)
+    {
+        if (moveHistory[moveHistory.size() - 1][i] != moveHistory[moveHistory.size() - 2][i])
+            std::cout << "Piece at pieceType " << i << " changed from " << std::bitset<64>(moveHistory[moveHistory.size() - 2][i]) << " to " << std::bitset<64>(moveHistory[moveHistory.size() - 1][i]) << std::endl;
+    }
 }
 
 // copies current board state to a vector

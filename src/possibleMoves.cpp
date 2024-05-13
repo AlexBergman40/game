@@ -50,7 +50,7 @@ void boardrep::updatePossibleMoves(string operation)
     break;
   }
 
-  possibleMoves = 0b00000000000000000011111111111111111111110000000000000000001; // random binary for now
+  possibleMoves = 0b00000000000000001010101010101010101010101010101010101010101010; // random binary for now
   drawPossibleMoves();
 }
 
