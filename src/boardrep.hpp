@@ -42,6 +42,8 @@ private:
             &blackQueens,
             &blackKing};
 
+    vector<vector<int64_t>> moveHistory = {{whitePawns, whiteRooks, whiteKnights, whiteBishops, whiteQueens, whiteKing, blackPawns, blackRooks, blackKnights, blackBishops, blackQueens, blackKing}};
+
     int64_t piecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing | whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
     int64_t whitePiecesOnBoard = whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
     int64_t blackPiecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing;
@@ -74,6 +76,8 @@ private:
     void updatePiecesOnBoard();
     void updateTurn();
     void printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions);
+    vector<int64_t> getBoardState();
+    void updateMoveHistory();
 
 public:
     boardrep();

@@ -8,7 +8,6 @@ void boardrep::updatePossibleMoves(string operation)
   {
     possibleMoves = 0;
     drawPossibleMoves();
-    std::cout << "cleared possible moves" << std::endl;
     return;
   }
   int pieceIndex = 0;

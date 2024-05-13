@@ -32,7 +32,6 @@ void boardrep::movePiece(int64_t from, int64_t to)
     *currentPieceType |= to;
 
     updateCurrentPiece(from, 0);
-    updatePiecesOnBoard();
 
     // add "to" square, bitwise or with piece integer
 }
@@ -42,7 +41,6 @@ void boardrep::movePiece(int64_t from, int64_t to)
 void boardrep::takePiece(int64_t square, int64_t *pieceType)
 {
     *pieceType ^= square;
-    updatePiecesOnBoard();
 }
 
 // Finds pieces positions and draws them
@@ -109,7 +107,6 @@ void boardrep::updateCurrentPiece(int64_t square, int LEFTCLICK)
         currentPiece = 0;
         currentPieceType = nullptr;
         updatePossibleMoves("clear");
-        std::cout << "Current piece: " << std::bitset<64>(currentPiece) << std::endl;
         return;
     }
 
@@ -124,12 +121,6 @@ void boardrep::updateCurrentPiece(int64_t square, int LEFTCLICK)
             updatePossibleMoves();
         }
     }
-    // current piece updated, possible moves updated
-    if (currentPiece == square)
-    {
-        std::cout << "Current piece: " << std::bitset<64>(currentPiece) << std::endl;
-        std::cout << "Possible moves updated" << std::endl;
-    }
 }
 
 // Updates current int64_t piece integers representing different color pieces on the board
@@ -143,6 +134,9 @@ void boardrep::updatePiecesOnBoard()
 // Oscilates turns between white and black
 void boardrep::updateTurn()
 {
+    updatePiecesOnBoard();
+    updateMoveHistory();
+
     if (whitesTurn)
     {
         friendlyPieces = blackPiecesOnBoard;
@@ -203,4 +197,17 @@ void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
             updateTurn();
         }
     }
+}
+
+// updates move history vector
+void boardrep::updateMoveHistory()
+{
+    moveHistory.push_back(getBoardState());
+    std::cout << "Move history updated" << std::endl;
+}
+
+// copies current board state to a vector
+vector<int64_t> boardrep::getBoardState()
+{
+    return vector<int64_t>{whitePawns, whiteRooks, whiteKnights, whiteBishops, whiteQueens, whiteKing, blackPawns, blackRooks, blackKnights, blackBishops, blackQueens, blackKing};
 }
