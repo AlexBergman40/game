@@ -6,6 +6,8 @@ class generatePossibleMoves
 {
 private:
   int64_t square = 0;
+  std::vector<std::vector<int64_t>> moveHistory = {};
+  int64_t piecesOnBoard = 0;
   int64_t possibleMoves = 0;
 
   std::vector<void (generatePossibleMoves::*)()> funcs = {
@@ -38,7 +40,7 @@ private:
 
 public:
   generatePossibleMoves();
-  generatePossibleMoves(int64_t square, int pieceType);
+  generatePossibleMoves(const int64_t &square, const int &pieceType, const std::vector<std::vector<int64_t>> &moveHistory, const int64_t &piecesOnBoard);
   ~generatePossibleMoves();
 
   int64_t generate() { return possibleMoves; }

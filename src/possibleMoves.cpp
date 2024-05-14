@@ -20,7 +20,7 @@ void boardrep::updatePossibleMoves(string operation)
       break;
     }
   }
-  generatePossibleMoves input(currentPiece, pieceIndex);
+  generatePossibleMoves input(currentPiece, pieceIndex, moveHistory, piecesOnBoard);
   possibleMoves = input.generate();
 
   drawPossibleMoves();
