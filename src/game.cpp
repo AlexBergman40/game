@@ -4,46 +4,51 @@
 #include "map.hpp"
 #include "boardrep.hpp"
 #include <SDL2/SDL_render.h>
+#include <iostream>
 
-GameObject* player;
-GameObject* enemy;
-Map* map;
-boardrep* board;
+GameObject *player;
+GameObject *enemy;
+Map *map;
+boardrep *board;
 
-SDL_Renderer* Game::renderer = nullptr;
+SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game()
-{}
+{
+}
 Game::~Game()
-{}
+{
+}
 
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     int flags = 0;
-    if(fullscreen)
+    if (fullscreen)
     {
         flags = SDL_WINDOW_FULLSCREEN;
     }
 
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout << "Subsystems initialized!..." << std::endl;
 
         window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-        if(window)
+        if (window)
         {
             std::cout << "Window created!" << std::endl;
         }
 
         renderer = SDL_CreateRenderer(window, -1, 0);
-        if(renderer)
+        if (renderer)
         {
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 203, 164, 255);
             std::cout << "Renderer created!" << std::endl;
         }
 
         isRunning = true;
-    } else {
+    }
+    else
+    {
         isRunning = false;
     }
 
@@ -52,32 +57,54 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     map = new Map();
     board = new boardrep();
     // using bitboard representation, initialize piece positions
-    // 
+    //
     // white pawns = 8 second rank
     // white castles = 1 bottom left, 1 bottom right
-    // 
-
+    //
 }
 
 void Game::handleEvents()
 {
     SDL_Event event;
-    while(SDL_PollEvent(&event)!=0)
+    enum highlightState
+    {
+        RIGHTCLICK,
+        LEFTCLICK
+    };
+    while (SDL_PollEvent(&event) != 0)
     {
         switch (event.type)
         {
-            case SDL_QUIT:
-                std::cout << "Quitting game!" << std::endl;
-                isRunning = false;
-                break;
+        case SDL_QUIT:
+            std::cout << "Quitting game!" << std::endl;
+            isRunning = false;
+            break;
 
-            case SDL_MOUSEBUTTONDOWN:
-                //TODO: Call board clicky
-                break;
+        case SDL_MOUSEMOTION:
+            // std::cout << event.motion.x << ", " << event.motion.y << std::endl;
+            break;
 
-            default:
-                break;
-        } 
+        case SDL_MOUSEBUTTONDOWN: // mouse button is pressed
+            if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_LEFT)
+            {
+                board->checkSquare(event.button.x, event.button.y, LEFTCLICK);
+            }
+            if (event.button.state == SDL_PRESSED && event.button.button == SDL_BUTTON_RIGHT)
+            {
+                board->checkSquare(event.button.x, event.button.y, RIGHTCLICK);
+            }
+
+        case SDL_MOUSEBUTTONUP:
+            if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_LEFT)
+            {
+            }
+            if (event.button.state == SDL_RELEASED && event.button.button == SDL_BUTTON_RIGHT)
+            {
+            }
+
+        default:
+            break;
+        }
     }
 }
 
@@ -90,7 +117,7 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    //add stuff to render here
+    // add stuff to render here
 
     map->DrawMap();
     board->printboard();
