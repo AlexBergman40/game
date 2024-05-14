@@ -5,8 +5,9 @@
 class generatePossibleMoves
 {
 private:
-  int64_t square;
-  int64_t possibleMoves;
+  int64_t square = 0;
+  int64_t possibleMoves = 0;
+
   std::vector<void (generatePossibleMoves::*)()> funcs = {
       &generatePossibleMoves::generateForWhitePawn,
       &generatePossibleMoves::generateForWhiteRook,
