@@ -1,4 +1,5 @@
 #include "boardrep.hpp"
+#include "generatePossibleMoves.hpp"
 
 // TODO: Finish updatePossibleMoves logic
 void boardrep::updatePossibleMoves(string operation)
@@ -19,37 +20,8 @@ void boardrep::updatePossibleMoves(string operation)
       break;
     }
   }
-  switch (pieceIndex)
-  {
-  case WHITEPAWN:
-
-    break;
-  case WHITEROOK:
-    break;
-  case WHITEKNIGHT:
-    break;
-  case WHITEBISHOP:
-    break;
-  case WHITEQUEEN:
-    break;
-  case WHITEKING:
-    break;
-  case BLACKPAWN:
-    break;
-  case BLACKROOK:
-    break;
-  case BLACKKNIGHT:
-    break;
-  case BLACKBISHOP:
-    break;
-  case BLACKQUEEN:
-    break;
-  case BLACKKING:
-    break;
-
-  default:
-    break;
-  }
+  generatePossibleMoves input(currentPiece, pieceIndex);
+  possibleMoves = input.generate();
 
   drawPossibleMoves();
 }

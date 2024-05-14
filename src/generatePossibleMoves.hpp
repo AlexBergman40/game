@@ -21,7 +21,6 @@ private:
       &generatePossibleMoves::generateForBlackQueen,
       &generatePossibleMoves::generateForBlackKing,
   };
-  ;
 
   void generateForWhitePawn();
   void generateForWhiteRook();
@@ -37,6 +36,7 @@ private:
   void generateForBlackKing();
 
 public:
+  generatePossibleMoves();
   generatePossibleMoves(int64_t square, int pieceType);
   ~generatePossibleMoves();
 
