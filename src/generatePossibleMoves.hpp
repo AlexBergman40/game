@@ -5,10 +5,37 @@
 class generatePossibleMoves
 {
 private:
-  int64_t square = 0;
-  std::vector<std::vector<int64_t>> moveHistory = {};
-  int64_t piecesOnBoard = 0;
-  int64_t possibleMoves = 0;
+
+  enum pieceTypes
+  {
+      WHITEPAWN,
+      WHITEROOK,
+      WHITEBISHOP,
+      WHITEKNIGHT,
+      WHITEQUEEN,
+      WHITEKING,
+      BLACKPAWN,
+      BLACKROOK,
+      BLACKBISHOP,
+      BLACKKNIGHT,
+      BLACKQUEEN,
+      BLACKKING
+  };
+
+  static const uint64_t endOfColumn = 0b1000000110000001100000011000000110000001100000011000000110000001;
+  static const uint64_t leftMostColumn  = 0b0000000100000001000000010000000100000001000000010000000100000001;
+  static const uint64_t rightMostColumn = 0b1000000010000000100000001000000010000000100000001000000010000000;
+
+  uint64_t square = 0;
+  std::vector<std::vector<uint64_t>> moveHistory = {};
+  uint64_t piecesOnBoard = 0;
+  uint64_t friendlyPieces = 0;
+  uint64_t enemyPieces = 0;
+  uint64_t possibleMoves = 0;
+
+  void recursiveMove(uint64_t square, int north, int west);
+
+  std::vector<uint64_t*> pieceTypeContainer;
 
   std::vector<void (generatePossibleMoves::*)()> funcs = {
       &generatePossibleMoves::generateForWhitePawn,
@@ -40,8 +67,14 @@ private:
 
 public:
   generatePossibleMoves();
-  generatePossibleMoves(const int64_t &square, const int &pieceType, const std::vector<std::vector<int64_t>> &moveHistory, const int64_t &piecesOnBoard);
+  generatePossibleMoves(const uint64_t &square, 
+    const int &pieceType,
+    const std::vector<std::vector<uint64_t>> &moveHistory, 
+    const uint64_t &piecesOnBoard, 
+    const uint64_t &friendlyPieces, 
+    const uint64_t &enemyPieces, 
+    std::vector<uint64_t *> pieceTypeContainer);
   ~generatePossibleMoves();
 
-  int64_t generate() { return possibleMoves; }
+  uint64_t generate() { return possibleMoves; }
 };

@@ -20,7 +20,7 @@ void boardrep::updatePossibleMoves(string operation)
       break;
     }
   }
-  generatePossibleMoves input(currentPiece, pieceIndex, moveHistory, piecesOnBoard);
+  generatePossibleMoves input(currentPiece, pieceIndex, moveHistory, piecesOnBoard, friendlyPieces, enemyPieces, pieceTypeContainer);
   possibleMoves = input.generate();
 
   drawPossibleMoves();
@@ -35,7 +35,7 @@ void boardrep::drawPossibleMoves()
            Dst = {0, 0, 64, 64};
   for (int i = 0; i < 64; i++)
   {
-    int64_t mask = (int64_t)1 << i;
+    uint64_t mask = (uint64_t)1 << i;
     bool isPresent = possibleMoves & mask;
     // possible move present at i'th square
     if (isPresent)

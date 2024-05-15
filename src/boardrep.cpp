@@ -26,7 +26,7 @@ boardrep::~boardrep()
 }
 
 // Moves bit information across *currentPieceType to produce movement once redrawn
-void boardrep::movePiece(int64_t from, int64_t to)
+void boardrep::movePiece(uint64_t from, uint64_t to)
 {
     *currentPieceType ^= from;
     *currentPieceType |= to;
@@ -38,13 +38,13 @@ void boardrep::movePiece(int64_t from, int64_t to)
 
 // Simple function that removes a piece from a *pieceType.
 // This is used in tandem with movePiece to produce a capture.
-void boardrep::takePiece(int64_t square, int64_t *pieceType)
+void boardrep::takePiece(uint64_t square, uint64_t *pieceType)
 {
     *pieceType ^= square;
 }
 
 // Finds pieces positions and draws them
-void boardrep::printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorPiecePositions)
+void boardrep::printColorPieces(SDL_Texture *pieceTexture, const uint64_t &colorPiecePositions)
 {
 
     int xPos = 0;
@@ -55,7 +55,7 @@ void boardrep::printColorPieces(SDL_Texture *pieceTexture, const int64_t &colorP
     Dst.h = Dst.w = 64;
     for (int i = 0; i < 64; i++)
     {
-        int64_t mask = (int64_t)1 << i;
+        uint64_t mask = (uint64_t)1 << i;
         bool isPresent = colorPiecePositions & mask;
         // piece present at position
         if (isPresent)
@@ -99,7 +99,7 @@ void boardrep::printboard()
 }
 
 // Updates current piece to be drawn, as well as other selection related variables (ie. currentPieceType, possibleMoves)
-void boardrep::updateCurrentPiece(int64_t square, int LEFTCLICK)
+void boardrep::updateCurrentPiece(uint64_t square, int LEFTCLICK)
 {
     // (RIGHT CLICK) function called with right click: clear currentPiece, currentPieceType, and possibleMoves
     if (!LEFTCLICK)
@@ -123,7 +123,7 @@ void boardrep::updateCurrentPiece(int64_t square, int LEFTCLICK)
     }
 }
 
-// Updates current int64_t piece integers representing different color pieces on the board
+// Updates current uint64_t piece integers representing different color pieces on the board
 void boardrep::updatePiecesOnBoard()
 {
     piecesOnBoard = blackPawns | blackRooks | blackKnights | blackBishops | blackQueens | blackKing | whitePawns | whiteRooks | whiteKnights | whiteBishops | whiteQueens | whiteKing;
@@ -140,11 +140,13 @@ void boardrep::updateTurn()
     if (whitesTurn)
     {
         friendlyPieces = blackPiecesOnBoard;
+        enemyPieces = whitePiecesOnBoard;
         whitesTurn = false;
     }
     else
     {
         friendlyPieces = whitePiecesOnBoard;
+        enemyPieces = blackPiecesOnBoard;
         whitesTurn = true;
     }
 }
@@ -169,7 +171,7 @@ void boardrep::checkSquare(Sint32 x, Sint32 y, int CLICKTYPE)
     int file = x / 64;
     int rank = y / 64;
     int position = rank * 8 + file;
-    int64_t square = (int64_t)1 << position;
+    uint64_t square = (uint64_t)1 << position;
 
     // clicking on the same piece with left click => do nothing
     if (square & currentPiece && CLICKTYPE)
@@ -212,7 +214,7 @@ void boardrep::updateMoveHistory()
 }
 
 // copies current board state to a vector
-vector<int64_t> boardrep::getBoardState()
+vector<uint64_t> boardrep::getBoardState()
 {
-    return vector<int64_t>{whitePawns, whiteRooks, whiteKnights, whiteBishops, whiteQueens, whiteKing, blackPawns, blackRooks, blackKnights, blackBishops, blackQueens, blackKing};
+    return vector<uint64_t>{whitePawns, whiteRooks, whiteKnights, whiteBishops, whiteQueens, whiteKing, blackPawns, blackRooks, blackKnights, blackBishops, blackQueens, blackKing};
 }
