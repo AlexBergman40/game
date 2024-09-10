@@ -73,7 +73,7 @@ This project leverages the following technologies:
 
 4. Run the chess engine:
     ```bash
-    ./chess-engine
+    ./game
     ```
 
 ## Learning Experience
